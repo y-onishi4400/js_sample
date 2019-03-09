@@ -1,0 +1,82 @@
+<% var json %><%-
+include('_common/_head', {
+  page: json['top']
+});
+%>
+
+<style>
+  .page_list {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .page_list li{
+    display: inline-block;
+    list-style: none;
+    margin-left: 20px;
+  }
+
+  #section01,
+  #section02,
+  #section03,
+  #section04 {
+    width: 100%;
+    padding: 300px 0;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  #section01,
+  #section03 {
+    background: #f7f7f7;
+  }
+
+  #section02,
+  #section04 {
+    background: #fff;
+  }
+</style>
+
+<script>
+  $(function(){
+
+    $(window).on('load',function(){
+      $('.js_scroll[href^="#"]').click(function(){
+
+        var speed = 700;
+        var href= $(this).attr('href');
+        var target = $(href == '#' || href == '' ? 'html' : href);
+        var position = target.offset().top;
+        $('html, body').stop().animate({scrollTop:position}, speed);
+        return false;
+      });
+    });
+
+  });
+</script>
+
+<h1 class="page_headline">ページ内リンク</h1>
+
+<ul class="page_list">
+  <li>
+    <a class="js_scroll" href="#section01">section01</a>
+  </li>
+  <li>
+    <a class="js_scroll" href="#section02">section02</a>
+  </li>
+  <li>
+    <a class="js_scroll" href="#section03">section03</a>
+  </li>
+  <li>
+    <a class="js_scroll" href="#section04">section04</a>
+  </li>
+</ul>
+
+<div id="section01">section01</div>
+<div id="section02">section02</div>
+<div id="section03">section03</div>
+<div id="section04">section04</div>
+
+
+<% include _common/_footer %>

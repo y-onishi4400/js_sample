@@ -1,0 +1,115 @@
+<% var json %><%-
+include('_common/_head', {
+  page: json['top']
+});
+%>
+
+<script>
+  $(function(){
+
+    console.log('text01は以下から');
+    console.log('\dは半角数字の意味');
+    var text01 = "名前：伊藤淳一\n電話：03-1234-5678\n住所：兵庫県西脇市板波町1-2-3";
+    console.log(text01.match(/\d/g));
+    console.log(text01.match(/\d\d-\d\d\d\d-\d\d\d\d/g));
+
+    console.log('text02は以下から');
+    console.log('{n,m} は「直前の文字が n 個以上、m 個以下」');
+    var text02 = "名前：伊藤淳一\n電話：03-1234-5678\n電話：090-1234-5678\n電話：0795-12-3456\n電話：04992-1-2345\n住所：兵庫県西脇市板波町1-2-3";
+    console.log(text02.match(/\d{2,5}-\d{1,4}-\d{4}/g));
+
+    console.log('text03は以下から');
+    console.log('「AまたはBのいずれか1文字」表す場合は [AB]');
+    console.log('[ABC] と書けば、「AまたはBまたはCのいずれか1文字」');
+    var text03 = "名前：伊藤淳一\n電話：03(1234)5678\n電話：090-1234-5678\n電話：0795(12)3456\n電話：04992-1-2345\n住所：兵庫県西脇市板波町1-2-3";
+    console.log(text03.match(/\d{2,5}[-(]\d{1,4}[-)]\d{4}/g));
+
+    console.log('text04は以下から');
+    console.log('「～が1文字、または無し」を表現するためには ?');
+    console.log('「任意の1文字」を表す . ');
+    var text04 = 'クープバゲットのパンは美味しかった。\n今日はクープ バゲットさんに行きました。\nクープ　バゲットのパンは最高。\nジャムおじさんのパン、ジャムが入ってた。\nまた行きたいです。クープ・バゲット。\nクープ・バケットのパン、売り切れだった（><）';
+    console.log(text04.match(/クープ.?バ[ゲケ]ット/g));
+
+
+    var text = "クープバゲットのパンは美味しかった。\n今日はクープ バゲットさんに行きました。\nクープ　バゲットのパンは最高。\nジャムおじさんのパン、ジャムが入ってた。\nまた行きたいです。クープ・バゲット。\nクープ・バケットのパン、売り切れだった（><）";
+    var lines = text.split(/\n/);
+    var targets = [];
+    for (var i = 0; i < lines.length; i++) {
+      if (lines[i].match(/クープ.?バ[ゲケ]ット/)) {
+        targets.push(lines[i]);
+      }
+    }
+    targets;
+    console.log(lines);
+    console.log(targets);
+
+    var html = "<select name=\"game_console\">\n<option value=\"none\"></option>\n<option value=\"wii_u\" selected>Wii U</option>\n<option value=\"ps4\">プレステ4</option>\n<option value=\"gb\">ゲームボーイ</option>\n</select>\n";
+
+    var replaced = html.replace(/<option value="(\w+)"(?: selected)?>(.*)<\/option>/g, "$1,$2");
+
+    console.log(replaced);
+
+
+    var text = "def hello(name)\n  puts \"Hello, \#{name}!\"\nend\n\nhello('Alice')\n     \nhello('Bob')\n\t\nhello('Carol')\n";
+
+    console.log(text.replace(/^[ \t]+$/gm, ''));
+
+
+    var text = "John:guitar, George:guitar, Paul:bass, Ringo:drum\nFreddie:vocal, Brian:guitar, John:bass, Roger:drum";
+
+    console.log(text.match(/\w+(?=:bass)/g));
+  });
+</script>
+
+Feb 14 07:33:02 app/web.1:  Completed 302 Found ...
+Feb 14 07:36:54 heroku/router:  at=info method=...
+Feb 14 07:36:54 app/web.1:  Started HEAD "/" ...
+Feb 14 07:36:54 app/web.1:  Completed 200 ...
+<a href="" target="_blank"></a>
+
+
+<p>\dは半角数字の意味</p>
+<p>{n,m} は「直前の文字が n 個以上、m 個以下」</p>
+<p>「AまたはBのいずれか1文字」表す場合は [AB]</p>
+<p>[ABC] と書けば、「AまたはBまたはCのいずれか1文字」</p>
+<p>「～が1文字、または無し」を表現するためには ?</p>
+<p>? は「直前の文字が1個、または無し」を表す<br>
+  . は「任意の1文字」を表す<br>
+  + は「直前の文字が1個以上」を表す<br>
+  * は「直前の文字が0個以上」を表す<br>
+  ( ) はマッチする部分をキャプチャ（捕捉）する<br>
+  キャプチャした部分は置換するときに $1 や \1 で参照できる<br>
+  \w は「英単語を校正する文字（半角英数字とアンダースコア）」を表す<br>
+  [^AB] は「AでもなくBでもない任意の1文字」を表す<br>
+  正規表現中の特別な文字は \ でエスケープする<br>
+  ( ) はキャプチャだけでなく、グループ化にも使われる<br>
+  (ABC)? は「文字列 ABC があり、または無し」を表す<br>
+  (?: ) はキャプチャ無しでグループ化する場合に使う<br>
+  * と + は「貪欲」で最長マッチを返すため、使い方を誤ると思いがけない結果が返る<br>
+  *? や +? にすると、最短マッチを返す<br>
+  テキストエディタで重要なテキストを置換する際は、ひとつずつ確認しながら置換する</p>
+  <p>^ は行頭を表す<br>
+    $ は行末を表す<br>
+    \t はタブ文字を表す<br>
+    \n は改行文字を表す<br>
+    \s は空白文字（スペース、タブ文字、改行文字等）を表す<br>
+    ABC|DEF は「文字列ABCまたは文字列DEF」のOR条件を表す<br>
+    改行コードは環境によって異なる場合がある<br>
+    ^ は行頭の意味になったり、[^ ] で否定の文字クラスの意味になったりする<br>
+  </p>
+  <p>\b は単語の境界を表す<br>
+(?=abc) は「abcという文字列の直前の位置」を表す（先読み）<br>
+(?<=abc) 「abcという文字列の直後の位置」を表す（後読み）<br>
+(?!abc) は「abcという文字列以外の直前の位置」を表す（否定の先読み）<br>
+(?<!abc) 「abcという文字列以外の直後の位置」を表す（否定の後読み）<br>
+キャプチャした文字列は正規表現内でも \1 や \2 といった連番で参照できる（後方参照）<br>
+? や *、+ といった量指定子は ( ) の後ろに付けることもできる<br>
+| を使ったOR条件では、各条件内でもメタ文字が使える<br>
+書き方によっては、とんでもなく遅い正規表現ができあがることもある<br>
+メタ文字はバックスラッシュ（\）でエスケープする<br>
+[ ] 内ではメタ文字の種類や使われる位置によって各文字の働きが異なる<br>
+{n,} や {,n} はそれぞれ「直前の文字がn個以上」「n個以下」の意味になる<br>
+\W、\S、\D、\B はそれぞれ \w、\s、\d、\b の逆の意味になる</p>
+
+
+<% include _common/_footer %>

@@ -1,0 +1,176 @@
+//inner
+@mixin inner($mt: 0,$mb: 0,$width: $base_wrap) {
+  width: $width;
+  margin-top: $mt + rem;
+  margin-right: auto;
+  margin-bottom: $mb + rem;
+  margin-left: auto;
+
+  @include respond(md){
+    width: 90%;
+  }
+
+  @include respond(sm){
+    margin-top: ($mt / 2) + rem;
+    margin-bottom: ($mb / 2) + rem;
+    width: 100%;
+  }
+}
+
+//claerfix
+@mixin cf() {
+  *zoom: 1;
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+//フォントサイズ
+@mixin fontsize($size: 16) {
+  // font-size: $size + px;
+  font-size: ($size / 10)  + rem;
+}
+
+//センター配置
+@mixin center() {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@mixin grid-type-float($mat, $mal, $width, $col, $firstLineCol, $parentWidth:0) {
+  $mat: 20px !default;
+  $mal: 20px !default;
+  $width: 200px !default;
+  $col: 4 !default;
+  $firstLineCol: #{$col} !default;
+  @include clearfix;
+  @if $parentWidth == 0 {
+    width: $mal * $col + $width * $col;
+    margin-left: 0 - $mal;
+  }
+  @else {
+    $mal: nounit($mal);
+    $width: nounit($width);
+    $parentWidth:nounit($parentWidth) + $mal;
+    width: 100% + percentage($mal / $parentWidth);
+    margin-left: 0 - percentage($mal / $parentWidth);
+  }
+  & > * {
+    /*  @if $legacy-support-for-ie6 or $legacy-support-for-ie7 {
+      } @else {
+          @include box-sizing(border-box);
+          }*/
+          float: left;
+          @if $parentWidth == 0 {
+            width: $width;
+            margin-left: $mal;
+            } @else {
+              width: percentage($width / $parentWidth);
+              margin-left: percentage($mal / $parentWidth);
+            }
+            @for $i from 2 through $col {
+              &.gridCol#{zeropadding($i,2)} {
+                @if $parentWidth == 0 {
+                  width: ($mal * $i - 1) + $width * $i;
+                }
+                @else {
+                  width: percentage($mal / $parentWidth) * ($i - 1) + percentage($width / $parentWidth) * $i;
+                }
+              }
+            }
+            @if $col - ($col - $firstLineCol) == 1 {
+              &:first-child ~ * {
+                margin-top: $mat;
+              }
+            }
+            @if $col - ($col - $firstLineCol) == 2 {
+              &:first-child + * ~ * {
+                margin-top: $mat;
+              }
+            }
+            @if $col - ($col - $firstLineCol) == 3 {
+              &:first-child + * + * ~ * {
+                margin-top: $mat;
+              }
+            }
+            @if $col - ($col - $firstLineCol) == 4 {
+              &:first-child + * + * + * ~ * {
+                margin-top: $mat;
+              }
+            }
+            @if $col - ($col - $firstLineCol) == 5 {
+              &:first-child + * + * + * + * ~ * {
+                margin-top: $mat;
+              }
+            }
+            @if $col - ($col - $firstLineCol) == 6 {
+              &:first-child + * + * + * + * + * ~ * {
+                margin-top: $mat;
+              }
+            }
+            @if $col - ($col - $firstLineCol) == 7 {
+              &:first-child + * + * + * + * + * + * ~ * {
+                margin-top: $mat;
+              }
+            }
+            @if $col - ($col - $firstLineCol) == 8 {
+              &:first-child + * + * + * + * + * + * + * ~ * {
+                margin-top: $mat;
+              }
+            }
+          }
+        }
+
+        @mixin fts($fts, $lin: 24) {
+          $rem: $fts / 10;
+          $linS: $lin / $fts;
+          font-size: #{$fts}px;
+          font-size: #{$rem}rem;
+          line-height: $linS;
+        }
+
+
+        @mixin shadow() {
+          box-shadow: 0px 1px 2px 0px rgba(206,206,206,0.50);
+        }
+
+// Responsive Mixins
+@mixin respond($media) {
+  // $sm-device-width (767px)以下の場合
+  @if $media == sm {
+    @media print, screen and (max-width: $md-device-width - 1) { @content; }
+  }
+  // $sm-device-width (640px)以上 〜 $md-device-width (767px)以下の場合
+  // @else if $media == sm {
+  //  @media print, screen and (min-width: $sm-device-width) and (max-width: $md-device-width - 1) { @content; }
+  // }
+
+  // $md-device-width (640px)以上 〜 $lg-device-width (999px)以下の場合
+  @else if $media == md {
+    @media print, screen and (min-width: $sm-device-width) and (max-width: $lg-device-width - 1) { @content; }
+  }
+  // $lg-device-width (1000px)以下の場合
+  // @else if $media == mobile {
+  //   @media print, screen and (max-width: $lg-device-width - 1) { @content; }
+  // }
+  // $lg-device-width (1000px)以上 〜 $xl-device-width (1279px)以下の場合
+  @else if $media == lg {
+    @media print, screen and (min-width: $lg-device-width) and (max-width: $xl-device-width - 1) { @content; }
+  }
+  // $xl-device-width (1000px)以上の場合
+  @else if $media == pc {
+    @media print, screen and (min-width: $lg-device-width) { @content; }
+  }
+  // $xl-device-width (1280px)以上の場合
+  @else if $media == xl {
+    @media print, screen and (min-width: $xl-device-width) { @content; }
+  }
+  @else {
+    @media print, screen and ('#{$media}') { @content; }
+  }
+}
+
+

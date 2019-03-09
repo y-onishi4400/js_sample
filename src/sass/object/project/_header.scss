@@ -1,0 +1,7 @@
+.p-header {
+
+  @include cf();
+
+  @include respond(sm){
+  }
+}

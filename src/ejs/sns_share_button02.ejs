@@ -1,0 +1,143 @@
+<% var json %><%-
+include('_common/_head', {
+  page: json['top']
+});
+%>
+
+<style>
+
+  .sns {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .sns:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .sns li{
+    display: inline-block;
+    list-style: none;
+    margin-left: 20px;
+  }
+
+  .p-article__sns li {
+    width: 32.3%;
+    margin: 0 1% 2% 0;
+    float: left;
+  }
+
+  .u-sns  a {
+    font-size: 80%;
+    position: relative;
+    display: block;
+    padding: 10px;
+    color: #fff;
+    border-radius: 2px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
+  }
+
+  .u-sns--twitter a {
+    background: #00acee;
+    box-shadow: 0 3px 0 #0092ca;
+  }
+
+  .u-sns--facebook a {
+    background: #1f6aba;
+    box-shadow: 0 3px 0 #2c4373;
+  }
+
+  .u-sns--hatebu a {
+    background: #2f70be;
+    box-shadow: 0 3px 0 #43638b;
+  }
+
+  .u-sns--googleplus a {
+    background: #df3522;
+    box-shadow: 0 3px 0 #ad3a2d;
+  }
+
+  .u-sns--pocket a {
+    background: #ec2136;
+    box-shadow: 0 3px 0 #c0392b;
+  }
+
+  .u-sns--feedly a {
+    background: #87c040;
+    box-shadow: 0 3px 0 #74a436;
+  }
+
+  .u-sns--line a {
+    background: #87c040;
+    box-shadow: 0 3px 0 #74a436;
+  }
+
+</style>
+
+<script>
+  $(function(){
+    //URLを取得しエンコードする
+    var href =location.href;
+    var getTitle = $('title').html();
+
+
+
+    var snsUrl = encodeURIComponent(href);
+    var snsTitle = encodeURIComponent(getTitle);
+
+    //SNSのシャア先をページごとに生成
+    $('.sns_link').each(function(){
+      var sns_obj = $(this).attr('id');
+      var snsCase = sns_obj;
+
+      switch (snsCase){
+
+        case 'sns_line':
+        $(this).attr('href','http://line.me/R/msg/text/?'+ snsTitle +'%20'+ snsUrl);
+        break;
+
+        case 'sns_fb':
+        $(this).attr('href','http://www.facebook.com/sharer.php?u='+ snsUrl);
+        break;
+
+        case 'sns_tw':
+        $(this).attr('href','http://twitter.com/share?text='+ snsTitle + '&url='+ snsUrl);
+        break;
+
+        case 'sns_plus':
+        $(this).attr('href','https://plus.google.com/share?url='+ snsUrl);
+        break;
+      }
+
+    });
+  });
+</script>
+
+<h1 class="page_headline">SNSのシェアボタン</h1>
+
+<ul class="p-article__sns u-sns sns">
+  <li class="sns_list u-sns--googleplus">
+    <a id="sns_plus" class="sns_link " href="" target="_blank">google+</a>
+  </li>
+  <li class="sns_list u-sns--twitter">
+    <a id="sns_tw" class="sns_link" href="" target="_blank">twitter</a>
+  </li>
+  <li class="sns_list u-sns--facebook">
+    <a id="sns_fb" class="sns_link" href="" target="_blank">facebook</a>
+  </li>
+  <li class="sns_list u-sns--line">
+    <a id="sns_line" class="sns_link" href="" target="_blank">line</a>
+  </li>
+  <li class="sns_list u-sns--hatebu">
+    <a id="sns_line" class="sns_link" href="" target="_blank">はてブ</a>
+  </li>
+  <li class="sns_list u-sns--pocket">
+    <a id="sns_line" class="sns_link" href="" target="_blank">pocket</a>
+  </li>
+</ul>
+
+<% include _common/_footer %>

@@ -1,0 +1,10 @@
+.l-content {
+  width: 90%;
+  max-width: 720px;
+  background: #ffffff;
+  margin: 120px auto;
+  padding: 16px;
+
+  @include respond(sm){
+  }
+}

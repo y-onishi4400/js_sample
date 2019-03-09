@@ -1,0 +1,84 @@
+<% var json %><%-
+include('_common/_head', {
+  page: json['top']
+});
+%>
+
+<style>
+
+.sns {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.sns li{
+  display: inline-block;
+  list-style: none;
+  margin-left: 20px;
+}
+
+</style>
+
+<script>
+  $(function(){
+//URLを取得しエンコードする
+var href =location.href;
+var getTitle = $('title').html();
+
+// スマホのディレクトリの場合は正規表現でスマホのディレクトリ名を書き換え
+// if ( href.indexOf('smp') != -1) {
+// 	var href = href.replace( /\/smp/g , "" );
+// }]
+
+var snsUrl = encodeURIComponent(href);
+var snsTitle = encodeURIComponent(getTitle);
+
+//SNSのシャア先をページごとに生成
+$('.sns_link').each(function(){
+  var sns_obj = $(this).attr('id');
+  var snsCase = sns_obj;
+
+  switch (snsCase){
+
+    case 'sns_line':
+    $(this).attr('href','http://line.me/R/msg/text/?'+ snsTitle +'%20'+ snsUrl);
+    break;
+
+    case 'sns_fb':
+    $(this).attr('href','http://www.facebook.com/sharer.php?u='+ snsUrl);
+    break;
+
+    case 'sns_tw':
+    $(this).attr('href','http://twitter.com/share?text='+ snsTitle + '&url='+ snsUrl);
+    break;
+
+    case 'sns_plus':
+    $(this).attr('href','https://plus.google.com/share?url='+ snsUrl);
+    break;
+  }
+
+});
+});
+</script>
+
+<div class="l-content">
+  <h1 class="page_headline">SNSのシェアボタン</h1>
+
+  <ul class="sns">
+    <li class="sns_list">
+      <a id="sns_plus" class="sns_link" href="" target="_blank">google+</a>
+    </li>
+    <li class="sns_list">
+      <a id="sns_tw" class="sns_link" href="" target="_blank">twitter</a>
+    </li>
+    <li class="sns_list">
+      <a id="sns_fb" class="sns_link" href="" target="_blank">facebook</a>
+    </li>
+    <li class="sns_list">
+      <a id="sns_line" class="sns_link" href="" target="_blank">line</a>
+    </li>
+  </ul>
+</div>
+
+
+<% include _common/_footer %>

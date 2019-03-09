@@ -1,0 +1,22 @@
+<% var json %><%-
+include('_common/_head', {
+  page: json['top']
+});
+%>
+
+<input type="text" id="name" value="都道府県">
+
+<form action="#">
+  <div>
+    <!-- <input type="text" id="name" value="都道府県"> -->
+    <input type="text" id="city" value="">
+  </div>
+
+  <div>
+    電話
+    <input type="tel" id="tel" value="0123-4567-890">
+  </div>
+
+</form>
+
+<% include _common/_footer %>

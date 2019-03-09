@@ -1,0 +1,26 @@
+@for $i from 0 through 10 {
+	.u-pt#{$i*5} {
+		padding-top: #{$i*5}px
+	}
+	.u-pr#{$i*5} {
+		padding-right: #{$i*5}px
+	}
+	.u-pb#{$i*5} {
+		padding-bottom: #{$i*5}px
+	}
+	.u-pl#{$i*5} {
+		padding-left: #{$i*5}px
+	}
+	.u-pt--percent#{$i} {
+		padding-top: #{$i}*1%
+	}
+	.u-pr--percent#{$i} {
+		padding-right: #{$i}*1%
+	}
+	.u-pb--percent#{$i} {
+		padding-bottom: #{$i}*1%
+	}
+	.u-pl--percent#{$i} {
+		padding-left: #{$i}*1%
+	}
+}
