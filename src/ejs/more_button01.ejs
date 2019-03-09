@@ -1,0 +1,92 @@
+<% var json %><%-
+include('_common/_head', {
+  page: json['top']
+});
+%>
+<style>
+</style>
+
+<script>
+  $(function(){
+    var showNum = 2;
+    var list = $('.js-list');
+    var item = $('.js-list').children('li');
+    var btn = $('.js-more');
+    var className = "is-hidden";
+
+    var itemsList = function () {
+      //表示されているliの個数を取得
+      var items = $(item).filter(':visible').length;
+
+      //ボタンの表示・非表示
+      if (items > showNum) { //リストが2個より多い時
+        $(btn).show();
+      } else { //リストが2個未満の時
+        $(btn).hide();
+      }
+
+      //リスト2個までを表示
+      (function () {
+        var addCount = 0;
+
+        $(item).each(function () {
+          if (addCount === showNum) {
+            $(this).addClass(className);
+            return;
+          }
+          if (!$(this).hasClass(className)) {
+            addCount++;
+          }
+        });
+      }());
+    }
+    itemsList();
+
+    //もっと見るボタンをクリックで2個ずつ表示
+    (function () {
+      $(btn).on('click', function () {
+        var hiddenLength = $(list).children('li.is-hidden').length;
+
+        if (hiddenLength === 0) {
+          return;
+        }
+
+        var moreCount = 0;
+        $(list).children('li.is-hidden').each(function () {
+          if (moreCount === showNum) {
+            return;
+          }
+
+          if ($(this).hasClass(className)) {
+            var hiddenLength = $(list).children('li.is-hidden').length;
+            $(this).removeClass(className);
+            moreCount++;
+          }
+
+          //全部表示したらボタン削除
+          if (hiddenLength === 1) {
+            $(btn).hide();
+          }
+        });
+        return false;
+      });
+    }());
+
+  });
+</script>
+
+<ul class="js-list c-list--number">
+  <li>この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。</li>
+  <li>この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。</li>
+  <li>この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。</li>
+  <li>この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。</li>
+  <li>この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。</li>
+  <li>この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。</li>
+  <li>この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。</li>
+  <li>この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。</li>
+</ul>
+<div>
+  <a class="js-more c-button" href="#">もっと見る</a>
+</div>
+
+<% include _common/_footer %>

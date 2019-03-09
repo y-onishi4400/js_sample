@@ -1,5 +1,15 @@
 .c-button {
 
+  @include fontsize(16);
+  background: $primaryColor;
+  border-radius: 60px;
+  text-align: center;
+  color: #ffffff;
+  width: 240px;
+  display: block;
+  margin: 40px auto 0;
+  padding: 8px 0;
+
   @include respond(sm){
   }
 }

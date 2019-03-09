@@ -1,0 +1,22 @@
+.c-list {
+  padding: 0 0 0 24px;
+
+  li {
+    margin: 16px 0 0;
+
+    &.is-hidden {
+      display: none;
+    }
+  }
+
+  &--number {
+    @extend .c-list;
+
+    li {
+      list-style-type: decimal;
+    }
+  }
+
+  @include respond(sm){
+  }
+}
